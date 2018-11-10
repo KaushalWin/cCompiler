@@ -33,7 +33,7 @@ public class IfStatement {
         Condition = new ArrayList<>();
     }
 
-    public boolean checkLoop() {
+    public boolean checkIf() {
         Data.trim();
         int start = Data.indexOf("(");
         int end = Data.indexOf(")");
@@ -80,12 +80,12 @@ public class IfStatement {
         return true;
     }
     public static void main(String[] args) {
-        String Check="while(a<<b || c<d && e==f)"
+        String Check="if(a<b || c<d && e==f)"
                 + "{"
                 + "C=A+b"
                 + "}";
         IfStatement a=new IfStatement(38, Check);
-        a.checkLoop();
+        a.checkIf();
         System.out.println(" "+a.isCorrect());
     }
     public int getLineNo() {
