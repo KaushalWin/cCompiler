@@ -92,27 +92,13 @@ public class ExpressionChecker {
             str = str.substring(index + 1);
             // System.out.println("" + str);
         } while (index != -1);
-
+        correct=true;
         return true;
     }
 
     public static void main(String[] args) {
-        String Check = "while(a<<b || c<d && e==f)"
-                + "{"
-                + "C=A+b"
-                + "}";
         ExpressionChecker d = new ExpressionChecker(5, "a+b-x+c+c-d");
         System.out.println("Result=" + d.checkExpression("c=a+b-x+c+c-d"));
-        // WhileLoop a=new WhileLoop(38, Check);
-        // a.checkLoop();
-        //    String s="a--b";
-        //        int asp=s.indexOf("-");
-        //        String[] ssa=s.split("-");
-        //        System.out.println("HERE"+s.charAt(asp+2));
-        //        for (String as : ssa) {
-        //            System.out.print(""+as);
-        //        }
-        //        
     }
 
     public int getLineNo() {
