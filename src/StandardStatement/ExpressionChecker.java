@@ -31,52 +31,19 @@ public class ExpressionChecker {
         this.Data = Data;
         Condition = new ArrayList<>();
     }
-
-    public boolean checkLoop() {
-        Data.trim();
-        int start = Data.indexOf("(");
-        int end = Data.indexOf(")");
-        System.out.println("Start="+start+" end="+end+" Data="+Data.length());
-        String condition = Data.substring((start + 1), end);
-        System.out.println("Data="+condition);
-        String Remaining = Data.substring(end + 2, Data.length()-1);
-        System.out.println("Remaining="+Remaining);
-        //  String[] conditionSplit=condition.split("[\|\| |&&]");
-        String[] splits = condition.split("\\|\\||&&");
-        for (String split : splits) {
-            split.trim();
-            
-            System.out.println("Splits="+split);
+    public boolean checkIdentifier(String str)
+    {
+        if(str.matches("[a-zA-Z]+"))
+        {
+            return true;
         }
-        for (String split : splits) {
-            split=split.replaceAll("\\s","");
-            if(split.length()>4)
-            {
-                System.out.println("MISTAKE Lenght"+split);
-                return false;
-            }
-            else if(split.contains("<>") || split.contains("><") ||split.contains("<<") || split.contains(">>") ||split.contains("=>") ||split.contains("=<"))
-            {
-                System.out.println("MISTAKE Syntaxt"+split);
-                return false;
-            }
-            String[] splitter = split.split("==|!=|<=|>=|<|>");
-            for (String splitter1 : splitter) {
-                splitter1.trim();
-                System.out.println("STIRNG="+splitter1);
-            }
-            if (splitter.length > 1) {
-                try {
-                    correct=true;
-                   // Float.parseFloat(splitter[1]);
-                } catch (Exception e) {
-                    System.out.println("HEREE");
-                    return false;
-                }
-            }
+        else
+        {
+            return false;
         }
-        // Condition.addAll();
-        return true;
+    }
+    public boolean checkExpression() {
+       
     }
     public static void main(String[] args) {
         String Check="while(a<<b || c<d && e==f)"
