@@ -12,6 +12,7 @@ import java.util.ArrayList;
  * @author jay
  */
 public class ExpressionChecker {
+
     int lineNo;
     boolean correct = false;
     String Data;
@@ -31,29 +32,79 @@ public class ExpressionChecker {
         this.Data = Data;
         Condition = new ArrayList<>();
     }
-    public boolean checkIdentifier(String str)
-    {
-        if(str.matches("[a-zA-Z]+"))
-        {
+
+    public boolean checkIdentifier(String str) {
+        if (str.matches("[a-zA-Z]+")) {
             return true;
-        }
-        else
-        {
+        } else {
             return false;
         }
     }
-    public boolean checkExpression() {
-       
+
+    public boolean checkExpression(String str) {
+        String[] exp = str.split("=");
+        if (exp.length > 1) {
+            for (int i = 0; i < exp.length; i++) {
+                System.out.println(" "+exp[i]);
+                boolean b = checkExpression(exp[i]);
+                if (b == false) {
+                    return false;
+                }
+            }
+        }
+
+        for (int i = 0; i < operations.length; i++) {
+            if (false == checkoperation(str, operations[i])) {
+                return false;
+            }
+        }
+
+        return true;
     }
+    char[] operations = {'+', '-', '/', '*', '^', '%'};
+
+    public boolean checkoperation(String str, char op) {
+        int index;
+        str.replaceAll("\\s", "");
+        do {
+            System.out.println("" + str);
+            index = str.indexOf(op);
+            if (index != -1) {
+             //   System.out.println(" OP=" + op + " String=" + str);
+                for (int i = 0; i < operations.length; i++) {
+                    System.out.println("1" + i);
+                    if (str.charAt(index - 1) == operations[i] || str.charAt(index + 1) == operations[i]) {
+                        System.out.println("" + i);
+                        return false;
+                    }
+                }
+            }
+            str = str.substring(index + 1);
+           // System.out.println("" + str);
+        } while (index != -1);
+
+        return true;
+    }
+
     public static void main(String[] args) {
-        String Check="while(a<<b || c<d && e==f)"
+        String Check = "while(a<<b || c<d && e==f)"
                 + "{"
                 + "C=A+b"
                 + "}";
-        WhileLoop a=new WhileLoop(38, Check);
-        a.checkLoop();
-        System.out.println(" "+a.isCorrect());
+        ExpressionChecker d = new ExpressionChecker(5, "a+b-x+c+c-d");
+        System.out.println("Result="+d.checkExpression("c=a+b-x+c+c-d"));
+        // WhileLoop a=new WhileLoop(38, Check);
+        // a.checkLoop();
+        //    String s="a--b";
+        //        int asp=s.indexOf("-");
+        //        String[] ssa=s.split("-");
+        //        System.out.println("HERE"+s.charAt(asp+2));
+        //        for (String as : ssa) {
+        //            System.out.print(""+as);
+        //        }
+        //        
     }
+
     public int getLineNo() {
         return lineNo;
     }
